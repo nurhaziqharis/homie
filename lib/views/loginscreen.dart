@@ -1,12 +1,47 @@
+import 'dart:js';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:homie_web/views/homepage/homepage_admin.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key}); //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _username = TextEditingController();
+
   final TextEditingController _password = TextEditingController();
+
+  bool checkLoginCredential() {
+    if (_username.text == 'zapwareadmin' && _password.text == '1') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void goToHomepage(BuildContext context) {
+    final loginResult = checkLoginCredential();
+    if (loginResult) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login success'), backgroundColor: Colors.green,),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomepageAdmin()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid login credentials'), backgroundColor: Colors.red,),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +114,8 @@ class LoginPage extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       TextField(
+                                        controller: _username,
+                                        onSubmitted: (_) => goToHomepage(context),
                                         decoration: InputDecoration(
                                           hintText: 'Email',
                                           contentPadding: EdgeInsets.symmetric(
@@ -86,13 +123,15 @@ class LoginPage extends StatelessWidget {
                                               horizontal:
                                                   12), // ⬅️ reduce height
                                           border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                12),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
                                           ),
                                         ),
                                       ),
                                       SizedBox(height: 8),
                                       TextField(
+                                        controller: _password,
+                                        onSubmitted: (_) => goToHomepage(context),
                                         decoration: InputDecoration(
                                           focusColor: Colors.yellowAccent,
                                           hintText: 'Password',
@@ -111,7 +150,7 @@ class LoginPage extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () => goToHomepage(context),
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,
                                                 backgroundColor: Colors.blue,
