@@ -1,10 +1,10 @@
-import 'dart:js';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:homie_web/views/homepage/homepage_admin.dart';
+import 'package:homie_web/views/registrationpage.dart';
+
+import '../widgets/textcontroller.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -30,7 +30,10 @@ class _LoginPageState extends State<LoginPage> {
     final loginResult = checkLoginCredential();
     if (loginResult) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login success'), backgroundColor: Colors.green,),
+        SnackBar(
+          content: Text('Login success'),
+          backgroundColor: Colors.green,
+        ),
       );
       Navigator.pushReplacement(
         context,
@@ -38,7 +41,10 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid login credentials'), backgroundColor: Colors.red,),
+        SnackBar(
+          content: Text('Invalid login credentials'),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -113,44 +119,24 @@ class _LoginPageState extends State<LoginPage> {
                                   //color: Colors.pinkAccent,
                                   child: Column(
                                     children: [
-                                      TextField(
-                                        controller: _username,
-                                        onSubmitted: (_) => goToHomepage(context),
-                                        decoration: InputDecoration(
+                                      customTextController(
                                           hintText: 'Email',
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 10,
-                                              horizontal:
-                                                  12), // ⬅️ reduce height
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                      ),
+                                          controller: _username,
+                                          context: context,
+                                          onSubmitted: goToHomepage),
                                       SizedBox(height: 8),
-                                      TextField(
-                                        controller: _password,
-                                        onSubmitted: (_) => goToHomepage(context),
-                                        decoration: InputDecoration(
-                                          focusColor: Colors.yellowAccent,
+                                      customTextController(
                                           hintText: 'Password',
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 10,
-                                              horizontal:
-                                                  12), // ⬅️ reduce height
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                12), // ⬅️ rounder corners
-                                          ),
-                                        ),
-                                      ),
+                                          controller: _password,
+                                          context: context,
+                                          onSubmitted: goToHomepage),
                                       SizedBox(height: 12),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: ElevatedButton(
-                                              onPressed: () => goToHomepage(context),
+                                              onPressed: () =>
+                                                  goToHomepage(context),
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,
                                                 backgroundColor: Colors.blue,
@@ -170,6 +156,23 @@ class _LoginPageState extends State<LoginPage> {
                                             onPressed: () {},
                                             child: Text(
                                               'Forgot Password',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.blue),
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        RegistrationPage(),
+                                                  ));
+                                            },
+                                            child: Text(
+                                              'Register',
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.blue),
