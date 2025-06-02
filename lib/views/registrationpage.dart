@@ -30,13 +30,14 @@ class RegistrationPage extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      color: Colors.orangeAccent,
+                      //color: Colors.orangeAccent,
                       child: Column(
                         children: [
                           Spacer(),
-                          Text('Register Now!', style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 28),),
+                          Text(
+                            'Register Now!',
+                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 28),
+                          ),
                           Spacer(),
                         ],
                       ),
@@ -47,20 +48,30 @@ class RegistrationPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 120.0),
                       child: Container(
-                        color: Colors.lightBlueAccent,
+                        //color: Colors.lightBlueAccent,
                         child: Column(
                           children: [
-                            customTextController(
-                                hintText: 'Email',
-                                context: context,
-                                controller: _email,
-                                onSubmitted: submitNewRegistration),
+                            customTextController(hintText: 'Email', context: context, controller: _email, onSubmitted: submitNewRegistration),
                             SizedBox(height: 8),
-                            customTextController(
-                                hintText: 'Password',
-                                context: context,
-                                controller: _password,
-                                onSubmitted: submitNewRegistration),
+                            customTextController(hintText: 'Password', context: context, controller: _password, onSubmitted: submitNewRegistration),
+                            SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Colors.blue,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: Text('Register'),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

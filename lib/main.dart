@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:homie_web/views/loginscreen.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:homie_web/views/registrationpage.dart';
 
 void main() {
+  setUrlStrategy(PathUrlStrategy());
   runApp(const MyApp());
 }
 
@@ -18,7 +21,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Raleway',
       ),
-      home: LoginPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/registration': (context) => RegistrationPage()
+      },
     );
   }
 }
